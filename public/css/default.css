@@ -1,0 +1,106 @@
+@import "bootstrap.min.css";
+
+body {
+    
+    
+	background:none;
+	/* background-size:cover */
+        
+        background-color: #F5F5F1;
+        color: #333333;
+        font-family: Arial, Helvetica, sans-serif;
+        
+	
+	margin: 0;
+	padding:0;
+
+	text-align:center;
+
+
+}
+
+
+.right {
+	text-align: right;
+}
+
+.left {
+	text-align: left;
+}
+
+.center {
+	text-align: center;
+}
+
+
+.navbar-default {
+	background-color: #EFEFEB;
+}
+
+.navbar-default .navbar-brand{
+	font-family: guardian-egypt, georgis, serif;
+	font-weight: 400;
+	color: #d5641c;
+	font-size: 30px;
+}
+
+.navbar-default .navbar-nav > li > a{
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	color: #019285;
+	font-size: 14px;
+}
+
+
+
+.caption {
+	h3 {
+		font-size: 30px;
+		margin: 2px;
+	}
+	p {
+		font-size: 18px;
+		margin: 0px;
+	}
+
+}
+
+.jumbotron {
+	background-image: url('/peco/public/images/banner.jpg');
+	background-size:cover;
+	color: #eeeeee;
+       -webkit-text-stroke: 2px #d5641c;
+	font-family: guardian-egypt, georgis, serif;
+}
+
+
+/*
+.clear {
+
+	clear: both;
+}
+
+.bold {
+    font-size:1.2em; 
+	font-weight:bold;
+}
+
+.large {
+font-family: Arquitecta,Helvetica,Verdana,Arial;
+	font-size:1.4em;
+}
+
+.bigger {
+	font-size:1.3em;
+}
+
+.big {
+
+font-size:1.2em; 
+
+}
+
+.small {
+	font-size:0.9em;
+}
+*/
