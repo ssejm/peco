@@ -2,12 +2,12 @@
 
 
 @section('navbar')
-        <li ><a href="{{ $site_path }}">Home</a></li>
-          <li class="active"><a href="about">About <span class="sr-only">(current)</span></a></li>
-          <li><a href="contact">Contact</a></li>
-           <li></li>
-           <li><a href="login">Log In</a></li>
-         <li><a href="signup">Sign Up</a></li>
+        <li><a href="{{ url('/') }}">Home</a></li>
+        <li class="active"><a href="{{ url('/about') }}">About <span class="sr-only">(current)</span></a></li>
+        <li><a href="{{ url('/contact') }}">Contact</a></li>
+        <li></li>
+        <li><a href="{{ url('/auth/login') }}">Log In</a></li>
+        <li><a href="{{ url('/auth/register') }}">Register</a></li>
 @stop    
 
 

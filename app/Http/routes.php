@@ -16,13 +16,24 @@
 //});
 
 
+//share constants on any view, i.e. {{ $site_name }}
+//constants created in app/config/constants.php
 View::share('site_name', Config::get('constants.SITE_NAME'));
 View::share('site_url', Config::get('constants.SITE_URL'));
 View::share('site_path', Config::get('constants.SITE_PATH'));
 
 
-            
+Route::controllers([
+     'auth' => 'Auth\AuthController',
+     'password' => 'Auth\PasswordController',
+]);
+         
 Route::get('/', function()
+{
+    return View::make('pages.home');
+});
+
+Route::get('home', function()
 {
     return View::make('pages.home');
 });
@@ -48,3 +59,6 @@ Route::get('signup', function()
 {
     return View::make('pages.signup');
 });
+
+
+
