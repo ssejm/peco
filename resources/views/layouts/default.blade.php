@@ -3,6 +3,8 @@
 
 @include('includes.head')
 
+@include('includes.alerts')
+
 <div id="main" class="row">
 
     <!-- main content -->

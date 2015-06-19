@@ -61,4 +61,10 @@ Route::get('signup', function()
 });
 
 
+Route::get('dashboard', function()
+{
+    return View::make('pages.dashboard');
+});
+
+
 

@@ -6,6 +6,8 @@ use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Http\Request;
+
 
 class AuthController extends Controller
 {
@@ -58,11 +60,16 @@ class AuthController extends Controller
      * @param  array  $data
      * @return User
      */
-    protected function create(array $data)
+    protected function create(array $data, Request $request)
     {
+       
+        //$request->setTrustedProxies(array('127.0.0.1')); // only trust proxy headers coming from the IP addresses on the array (change this to suit your needs)
+       // $ip = $request->getClientIp();
+
         return User::create([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
+            'current_sign_in_ip' => $request->ip(),
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);

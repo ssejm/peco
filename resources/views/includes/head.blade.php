@@ -16,8 +16,24 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-@yield('navbar')
+    <!--    @yield('navbar')-->
 
+        <li><a href="{{ url('/') }}">Home</a></li>
+        <li><a href="{{ url('/about') }}">About</a></li>
+        <li><a href="{{ url('/contact') }}">Contact</a></li>
+        <li></li>
+
+           <?php  if (Auth::check()): ?>
+        <li><a href="{{ url('/dashboard') }}">Dashboard</a></li>
+
+         <li><a href="{{ url('/auth/logout') }}">Log Out</a></li>
+
+       <?php   else: ?>
+        <li><a href="{{ url('/auth/login') }}">Log In</a></li>
+        <li><a href="{{ url('/auth/register') }}">Register</a></li>
+         <?php  endif; ?>
+        <!--   end navabar -->
+          
       </ul>
       <form class="navbar-form navbar-right" role="search">
         <div class="form-group">
