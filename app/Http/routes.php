@@ -27,7 +27,11 @@ Route::controllers([
      'auth' => 'Auth\AuthController',
      'password' => 'Auth\PasswordController',
 ]);
-         
+
+Route::resource('listings', 'ListingsController');
+//Route::resource('listings', 'ListingsController', ['except' => ['create', 'edit']]);
+
+
 Route::get('/', function()
 {
     return View::make('pages.home');
@@ -65,6 +69,7 @@ Route::get('dashboard', function()
 {
     return View::make('pages.dashboard');
 });
+
 
 
 
