@@ -18,31 +18,48 @@
       <ul class="nav navbar-nav">
     <!--    @yield('navbar')-->
 
-        <li><a href="{{ url('/') }}">Home</a></li>
         <li><a href="{{ url('/about') }}">About</a></li>
         <li><a href="{{ url('/contact') }}">Contact</a></li>
-        <li></li>
 
-           <?php  if (Auth::check()): ?>
-        <li><a href="{{ url('/listings') }}">Dashboard</a></li>
-
-         <li><a href="{{ url('/auth/logout') }}">Log Out</a></li>
-
-       <?php   else: ?>
-        <li><a href="{{ url('/auth/login') }}">Log In</a></li>
-        <li><a href="{{ url('/auth/register') }}">Register</a></li>
-         <?php  endif; ?>
         <!--   end navabar -->
           
       </ul>
-      <form class="navbar-form navbar-right" role="search">
+      <form class="navbar-form navbar-left" role="search">
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Search">
         </div>
         <button type="submit" class="btn btn-default">Search</button>
       </form>
         
+      <ul class="nav navbar-nav navbar-right">
 
+           <?php  if (Auth::check()): ?>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Seller Account<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="{{ url('/listings') }}">Manage Listings</a></li>
+            <li><a href="{{ url('/sales') }}">Sales History</a></li>
+            <li><a href="{{ url('/purchases') }}">Purchase History</a></li>
+
+          </ul>
+        </li>
+        
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->user_name}}<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+           <li><a href="{{ url('/auth/logout') }}">Log Out</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="{{ url('/users/edit') }}">Edit Profile</a></li>
+          </ul>
+        </li>
+
+
+       <?php   else: ?>
+        <li><a href="{{ url('/auth/login') }}">Log In</a></li>
+        <li><a href="{{ url('/auth/register') }}">Register</a></li>
+         <?php  endif; ?>
+        
+      </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>

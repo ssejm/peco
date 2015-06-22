@@ -43,11 +43,10 @@ class ListingsController extends Controller
            $listings = Listings::where('user_id',  Auth::user()->id )->get();      
 
            
-           
            //WORKED!
              return view('pages.listings', compact('listings'));
 
-                         // return view('pages.listings', $listings);
+            // return view('pages.listings', $listings);
             // return view('pages.listings')->with($listings);
             //return View::make('pages.listings', $listings);
                 
