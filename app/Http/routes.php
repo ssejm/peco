@@ -28,13 +28,22 @@ Route::controllers([
      'password' => 'Auth\PasswordController',
 ]);
 
-Route::resource('listings', 'ListingsController');
-//Route::resource('listings', 'ListingsController', ['except' => ['create', 'edit']]);
+//Route::resource('listings', 'ListingsController');
 
-Route::resource('user', 'UserController');
+//explicitally  listed them, so SHOW doesn't need to be logged in!
+Route::get('listings', ['middleware' => 'auth','uses' => 'ListingsController@index']);
+Route::get('listings/create', ['middleware' => 'auth','uses' => 'ListingsController@create']);
+Route::post('listings', ['middleware' => 'auth','uses' => 'ListingsController@store']);
+Route::get('listings/{listings}', ['uses' => 'ListingsController@show']);
+Route::get('listings/{listings}/edit', ['middleware' => 'auth','uses' => 'ListingsController@edit']);
+Route::put('listings/{listings}', ['middleware' => 'auth','uses' => 'ListingsController@update']);
+Route::patch('listings/{listings}', ['middleware' => 'auth','uses' => 'ListingsController@update']);
+Route::delete('listings/{listings}', ['middleware' => 'auth','uses' => 'ListingsController@destroy']);
 
 
-//Route::put('user/{id}', 'UserController@update');
+Route::resource('user', 'UserController', ['except' => ['create', 'edit', 'update', 'show']]);
+
+
 
 Route::get('/', function()
 {

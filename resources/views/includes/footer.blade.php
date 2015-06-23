@@ -1,4 +1,8 @@
 
+<br />
+<a href="{{ URL::previous() }}">Back</a>
+
+
 <br /><br />
 <footer class="row">
     <div id="copyright text-right">&copy; Copyright 

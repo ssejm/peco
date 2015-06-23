@@ -32,6 +32,7 @@ class UserController extends Controller
      */
     public function index()
     {
+
           return view('auth.edit');
     }
 
@@ -131,11 +132,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        // get the nerd
-        $user = User::find($id);
-
-
-         return view('auth.edit', compact('$user'));
+        
+//        $user = User::find($id);
+//         return view('auth.edit', compact('$user'));
 
     }
 
@@ -165,14 +164,16 @@ class UserController extends Controller
     {
         // delete
 
-         $user = User::find($id);
+         //$user = User::find($id);
          
-        //$user = Auth::user();
+        //no way to delete by putting in a different user id
+        //willonly delete logged in user
+        $user = Auth::user();
         
         $user->delete();
 
         // redirect
-        return Redirect::to('home/')->with('success', 'You have successfully deleted your account!');
+        return Redirect::to('home/')->with('success', 'You have successfully canceled your account!');
 
     }
 }

@@ -67,6 +67,7 @@ body {
 
 .jumbotron {
 	background-image: url('/peco/public/images/banner.jpg');
+	//background-image: url({{ asset('/images/banner.jpg')}});
 	background-size:cover;
 	color: #eeeeee;
        -webkit-text-stroke: 2px #d5641c;

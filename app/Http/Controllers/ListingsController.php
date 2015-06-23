@@ -20,8 +20,8 @@ class ListingsController extends Controller
     //add constructor that says you need to be logged in - via middleware
     public function __construct()
     {
-        $this->middleware('auth');
-        
+        //want to publicly show listings for SHOW, so have to do it in routes
+        //$this->middleware('auth');
     }
     /**
      * Display a listing of the resource.
@@ -30,6 +30,8 @@ class ListingsController extends Controller
      */
     public function index()
     {
+        
+        
             //with caching
             /*
             $listings = Cache::remember('listings',  2, function () {
@@ -38,13 +40,12 @@ class ListingsController extends Controller
 
            //$listings = Listings::all();
 
-          //  echo Auth::user()->id;
         
            $listings = Listings::where('user_id',  Auth::user()->id )->get();      
 
            
            //WORKED!
-             return view('pages.listings', compact('listings'));
+             return view('listings.index', compact('listings'));
 
             // return view('pages.listings', $listings);
             // return view('pages.listings')->with($listings);
@@ -59,6 +60,8 @@ class ListingsController extends Controller
      */
     public function create()
     {
+
+        
         //
     }
 
@@ -69,6 +72,7 @@ class ListingsController extends Controller
      */
     public function store()
     {
+
         //
     }
 
@@ -80,7 +84,15 @@ class ListingsController extends Controller
      */
     public function show($id)
     {
-        //
+           $listings = Listings::where('id', $id)->get();      
+
+           //should only be one result!
+            $listing = $listings[0];
+            
+            //echo "$listing->title";
+                  
+             return view('listings.show', compact('listing'));
+
     }
 
     /**
@@ -91,6 +103,7 @@ class ListingsController extends Controller
      */
     public function edit($id)
     {
+
         //
     }
 
@@ -102,6 +115,7 @@ class ListingsController extends Controller
      */
     public function update($id)
     {
+
         //
     }
 
@@ -113,6 +127,7 @@ class ListingsController extends Controller
      */
     public function destroy($id)
     {
+
         //
     }
 }

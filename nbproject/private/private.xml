@@ -3,11 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/var/www/html/peco/app/User.php</file>
+            <file>file:/var/www/html/peco/resources/views/includes/head.blade.php</file>
             <file>file:/var/www/html/peco/app/Listings.php</file>
             <file>file:/var/www/html/peco/app/Http/routes.php</file>
+            <file>file:/var/www/html/peco/resources/views/listings/index.blade.php</file>
+            <file>file:/var/www/html/peco/resources/views/listings/show.blade.php</file>
             <file>file:/var/www/html/peco/app/Http/Controllers/ListingsController.php</file>
-            <file>file:/var/www/html/peco/resources/views/pages/listings.blade.php</file>
         </group>
     </open-files>
 </project-private>
