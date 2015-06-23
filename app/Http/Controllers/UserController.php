@@ -64,24 +64,19 @@ class UserController extends Controller
             'password' => 'required',
         );
         
-          $validator = Validator::make(Input::all(), $rules);
-
-    
+        $messages = [
+            'password.required' => 'The current password field is required.',
+        ];       
+         
+        $validator = Validator::make($request->all(), $rules, $messages);
             
         $credentials =  $request->only('email', 'password');
 
-        if (Auth::attempt($credentials)) {
-            
-            //return redirect()->intended($this->redirectPath());
-        }
-
-
-        
         // process the login
         if ($validator->fails()) {
             return Redirect::to('user/')
                 ->withErrors($validator)
-                ->withInput(Input::except('password'));
+                ->withInput( $request->except('password'));
         } 
         else if(!Auth::attempt($credentials))
         {
@@ -96,13 +91,13 @@ class UserController extends Controller
         else {
             // store
 
-            $user->first_name = Input::get('first_name');
-            $user->last_name =  Input::get('last_name');
-            $user->email =  Input::get('email');
+            $user->first_name = $request->input('first_name');
+            $user->last_name =  $request->input('last_name');
+            $user->email =  $request->input('email');
 
-            if (Input::has('new_password'))
+            if ($request->has('new_password'))
             {
-                 $user->password = bcrypt(Input::get('new_password'));
+                 $user->password = bcrypt($request->input('new_password'));
 
             }
 
@@ -111,7 +106,7 @@ class UserController extends Controller
 
             $user->save();
             // redirect
-            return Redirect::to('user/')->with('success', 'You have successfully edited your profile!');
+            return Redirect::to('user/')->with('success', 'You have successfully updated your profile!');
 
         }
         
@@ -168,6 +163,16 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // delete
+
+         $user = User::find($id);
+         
+        //$user = Auth::user();
+        
+        $user->delete();
+
+        // redirect
+        return Redirect::to('home/')->with('success', 'You have successfully deleted your account!');
+
     }
 }

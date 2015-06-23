@@ -132,6 +132,6 @@ class AuthController extends Controller
 
         Auth::login($this->create($request->all(),$request));
 
-        return redirect($this->redirectPath());
+        return redirect($this->redirectPath())->with('success', 'You have successfully registered!');
     }
 }

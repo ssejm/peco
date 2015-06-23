@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('last_sign_in_ip', 45);
             $table->timestamp('last_login_at')->nullable();
             $table->integer('sign_in_count')->default(1);
+            $table->softDeletes();
 
 
         });
