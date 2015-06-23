@@ -31,6 +31,10 @@ Route::controllers([
 Route::resource('listings', 'ListingsController');
 //Route::resource('listings', 'ListingsController', ['except' => ['create', 'edit']]);
 
+Route::resource('user', 'UserController');
+
+
+//Route::put('user/{id}', 'UserController@update');
 
 Route::get('/', function()
 {

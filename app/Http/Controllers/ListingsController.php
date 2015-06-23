@@ -17,7 +17,7 @@ use App\User;
 
 class ListingsController extends Controller
 {
-    //add contstructor that says you need to be logged in - via middleware
+    //add constructor that says you need to be logged in - via middleware
     public function __construct()
     {
         $this->middleware('auth');

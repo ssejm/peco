@@ -49,7 +49,7 @@
           <ul class="dropdown-menu">
            <li><a href="{{ url('/auth/logout') }}">Log Out</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="{{ url('/users/edit') }}">Edit Profile</a></li>
+            <li><a href="{{ url('/user/') }}">Edit Profile</a></li>
           </ul>
         </li>
 
