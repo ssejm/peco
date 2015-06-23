@@ -17,6 +17,10 @@ use Validator;
 use Input;
 use Session;
 use Redirect;
+use Illuminate\Support\Str;
+
+use File;
+
 
 class ListingsController extends Controller
 {
@@ -39,9 +43,6 @@ class ListingsController extends Controller
             $listings = Cache::remember('listings',  2, function () {
                 return Listings::all();
             }); */
-
-           //$listings = Listings::all();
-
         
            $listings = Listings::where('user_id',  Auth::user()->id )->get();      
 
@@ -78,12 +79,13 @@ class ListingsController extends Controller
             'description'       => 'required',
             'category'      => 'required',
             'price'      => 'required|numeric',
-            'image_file_name'      => 'required',
+            'image'      => 'required|max:999|mimes:jpg,gif,jpeg,bmp,png',
         );
         
         $messages = [
             'price.numeric' => 'The price must be a number. (Please do not include commas or dollar signs)',
-            'image_file_name.required' => 'At least one image is required.',
+            'image.required' => 'At least one image is required.',
+            'image.mimes' => 'Not a valid image. Valid types include jpg/jpeg, gif, and png.'
         ];       
          
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -94,6 +96,11 @@ class ListingsController extends Controller
                 ->withErrors($validator)
                 ->withInput( $request->all());
         } 
+        else if ( !$request->file('image')->isValid() )
+        {
+          // sending back with error message.
+          return Redirect::to('/listings/create')->with('error', 'uploaded file is not valid');
+        }
         else {
             // store
 
@@ -102,11 +109,33 @@ class ListingsController extends Controller
             $listing->description =  $request->input('description');
             $listing->category =  $request->input('category');
             $listing->price =  $request->input('price');
-            $listing->image_file_name =  $request->input('image_file_name');
+           // $listing->image_file_name =  $request->input('image_file_name');
             
+
+            $listing->image_content_type =  $request->file('image')->getMimeType();
+            $listing->image_file_sizes =  $request->file('image')->getSize();
+
+            //move to correct destination
+            //$destinationPath = url( asset('/images/listings/'));
+            $destinationPath = public_path('images/listings/');
+            $extension =  $request->file('image')->getClientOriginalExtension(); // getting image extension
+            $fileName = Str::random(10) . rand(11111,99999).'.'.$extension; // renaming image
+
+           // $listing->image_file_name =   $request->file('image')->getClientOriginalName();
+            $listing->image_file_name =  $fileName;
+            
+            
+            $request->file('image')->move($destinationPath, $fileName);
+
+            /*
+            //Getting path of uploaded file 
+            $path = Input::file('image')->getRealPath();
+            */
+            
+            //for foreign key
             $user = Auth::user();
-            
             $listing->user_id =  $user->id;
+            
             $listing->save();
             // redirect
             return Redirect::to('/listings')->with('success', 'You have successfully created your listing!');
@@ -165,15 +194,15 @@ class ListingsController extends Controller
             'category'      => 'required',
             'price'      => 'required|numeric',
             //'price'      =>  array('match:/^[0-9,\$]*\.[0-9]+$/'),
-            'image_file_name'      => 'required',
+            'image'      => 'max:999|mimes:jpg,gif,jpeg,bmp,png',
         );
         
-        
-
         $messages = [
             'price.numeric' => 'The price must be a number. (Please do not include commas or dollar signs)',
-            'image_file_name.required' => 'At least one image is required.',
-        ];       
+            //'image.required' => 'At least one image is required.',
+            'image.mimes' => 'Not a valid image. Valid types include jpg/jpeg, gif, and png.'
+        ];   
+        
          
         $validator = Validator::make($request->all(), $rules, $messages);
             
@@ -184,22 +213,39 @@ class ListingsController extends Controller
                 ->withErrors($validator)
                 ->withInput( $request->all());
         } 
+        else if ( $request->hasFile('image') && !$request->file('image')->isValid() )
+        {
+          // sending back with error message.
+          return Redirect::to('/listings/create')->with('error', 'uploaded file is not valid');
+        }
         else {
             // store
 
             $listing->title = $request->input('title');
             $listing->description =  $request->input('description');
             $listing->category =  $request->input('category');
-            
-            
-            //$price = $request->input('price');
-            //preg_replace('/(\d),(\d)/','$1$2',$str);
-
-             
             $listing->price =  $request->input('price');
-            $listing->image_file_name =  $request->input('image_file_name');
+
+            
+            if ($request->hasFile('image'))
+            {
+                $listing->image_content_type =  $request->file('image')->getMimeType();
+                $listing->image_file_sizes =  $request->file('image')->getSize();
+
+                //move to correct destination
+                //$destinationPath = url( asset('/images/listings/'));
+                $destinationPath = public_path('images/listings/');
+                $extension =  $request->file('image')->getClientOriginalExtension(); // getting image extension
+                $fileName = Str::random(10) . rand(11111,99999).'.'.$extension; // renaming image
+
+               // $listing->image_file_name =   $request->file('image')->getClientOriginalName();
+                $listing->image_file_name =  $fileName;
 
 
+                $request->file('image')->move($destinationPath, $fileName);
+            }
+            
+            
             $listing->save();
             // redirect
             return Redirect::to('/listings')->with('success', 'You have successfully updated your listing!');
@@ -215,7 +261,20 @@ class ListingsController extends Controller
      */
     public function destroy($id)
     {
+        $listing = Listings::find($id);
+        
+        $destinationPath = public_path('images/listings/');
+        
+        $fileName =  $listing->image_file_name;
 
-        //
+        $file = $destinationPath . $fileName;
+        
+        //also delete the image associated with listing
+        File::delete($file);
+                
+        $listing->delete();
+
+        return Redirect::to('/listings')->with('success', 'You have successfully deleted your listing!');
+
     }
 }

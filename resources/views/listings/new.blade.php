@@ -26,7 +26,7 @@
                                         
 					@endif
 
-					<form class="form-horizontal" role="form" method="POST" action="{{url('/listings')}}">
+					<form class="form-horizontal" enctype="multipart/form-data" role="form" method="POST" action="{{url('/listings')}}">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 
@@ -60,9 +60,9 @@
 						</div>
                                                  
 						<div class="form-group">
-							<label class="col-md-4 control-label">Image File Name</label>
+							<label class="col-md-4 control-label">Image</label>
 							<div class="col-md-6">
-								<input type="text" class="form-control" name="image_file_name" value="{{old('image_file_name')}}">
+								<input type="file" class="form-control" name="image" value="{{old('image')}}">
 							</div>
 						</div>
 

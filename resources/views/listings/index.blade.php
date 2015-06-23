@@ -19,7 +19,8 @@
 </tr>
     @foreach ($listings as $row)  
   <tr>
-  <td><img src="{{asset('/images/listings/'.$row->image_file_name)}}" alt="{{$row->title}}" width="100" /></td>
+  <td><a  href="{{url('listings/'. $row->id)}}">
+    <img src="{{asset('/images/listings/'.$row->image_file_name)}}" alt="{{$row->title}}" width="100" /></a></td>
   <td>{{$row->title}}</td>
   <td>{{$row->description}}</td>
   <td>{{$row->category}}</td>
@@ -27,10 +28,19 @@
   <td>
 
   <div class="btn-group" role="group" >
-  <a class="btn btn-info" href="{{url('listings/'. $row->id)}}">View</a></button>
-  <a class="btn btn-warning" href="{{url('listings/'. $row->id .'/edit')}}">Edit</a></button>
-  <a class="btn btn-danger" data-method="delete" href="{{url('listings/'. $row->id )}}">Delete</a></button>
+  <a class="btn btn-info" href="{{url('listings/'. $row->id)}}">View</a>
+  <a class="btn btn-warning" href="{{url('listings/'. $row->id .'/edit')}}">Edit</a>
 </div>
+      <p>
+    <form  role="form" method="POST" action="{{url('/listings/' . $row->id)}}"
+          onsubmit ="return ConfirmDelete('Are you sure you want to delete this listing?')">
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+    <input  name="_method" type="hidden" value="DELETE" />
+    <input data-confirm="Are you sure?"  class="btn btn-danger" type="submit" value="Delete" />
+    </form></p>
+  
+  <!--<a class="btn btn-danger" data-method="delete" href="{{url('listings/'. $row->id )}}">Delete</a></button>-->
+
 
 
 <!--  <div class="btn-group">
