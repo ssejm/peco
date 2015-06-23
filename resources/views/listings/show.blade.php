@@ -12,12 +12,7 @@
     </div>
     <div class="col-md-6">
     	<h3>{{$listing->title}}</h3>
-<?php 
-//setlocale(LC_MONETARY, 'en_US');
-//echo "<p>" . money_format('%i',  $listing->price) . "</p>"; 
-?>
-
-    	<p>${{$listing->price}}</p>
+    	<p>${{ number_format($listing->price, 2) }}</p>
     	<p>{{$listing->description}}</p>
         <br />
         <div class="center">

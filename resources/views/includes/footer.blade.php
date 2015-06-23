@@ -1,6 +1,6 @@
 
 <br />
-<a href="{{ URL::previous() }}">Back</a>
+<a href="{{ URL::previous() }}">[Back]</a>
 
 
 <br /><br />

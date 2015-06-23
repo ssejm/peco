@@ -26,7 +26,7 @@
                                         
 					@endif
 
-					<form class="form-horizontal" role="form" method="POST" action="{{url('user')}}">
+					<form class="form-horizontal" role="form" method="POST" action="{{url('/user')}}">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 						<div class="form-group">
@@ -97,7 +97,7 @@
                                      
                          
 
-					<form class="form-horizontal" role="form" method="POST" action="{{url('user/' . Auth::user()->id)}}"
+					<form class="form-horizontal" role="form" method="POST" action="{{url('/user/' . Auth::user()->id)}}"
                                               onsubmit ="return ConfirmDelete('Are you sure you want to cancel?')">
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                 

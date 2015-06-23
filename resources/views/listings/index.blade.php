@@ -13,15 +13,17 @@
 <th class="center">Image</th>
 <th class="center">Name</th>
 <th class="center">Description</th>
+<th class="center">Category</th>
 <th class="center">Price</th>
-<th class="center" width="25%">Action</th>
+<th class="center" >Action</th>
 </tr>
     @foreach ($listings as $row)  
   <tr>
   <td><img src="{{asset('/images/listings/'.$row->image_file_name)}}" alt="{{$row->title}}" width="100" /></td>
   <td>{{$row->title}}</td>
   <td>{{$row->description}}</td>
-  <td>${{$row->price}}</td>
+  <td>{{$row->category}}</td>
+  <td>${{ number_format($row->price, 2) }}</td>
   <td>
 
   <div class="btn-group" role="group" >
@@ -53,5 +55,12 @@
     <h3>You have no Listings.</h3>
 @endif
 
+
+
+
+
+<br />
+
+<span class="default-link"><a href="{{url('/listings/create')}}">New Listing</a></span>
 
 @stop

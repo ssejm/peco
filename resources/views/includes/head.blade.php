@@ -38,6 +38,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Seller Account<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="{{ url('/listings') }}">Manage Listings</a></li>
+            <li><a href="{{ url('/listings/create') }}">New Listing</a></li>
             <li><a href="{{ url('/sales') }}">Sales History</a></li>
             <li><a href="{{ url('/purchases') }}">Purchase History</a></li>
 
@@ -49,7 +50,7 @@
           <ul class="dropdown-menu">
            <li><a href="{{ url('/auth/logout') }}">Log Out</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="{{ url('/user/') }}">Edit Profile</a></li>
+            <li><a href="{{ url('/user') }}">Edit Profile</a></li>
           </ul>
         </li>
 
