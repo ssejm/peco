@@ -12,12 +12,17 @@
 <link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"  />
 <link href="{{ asset('/css/bootstrap-theme.min.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('/css/default.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('/css/magnific-popup.css') }}" rel="stylesheet" type="text/css" />
+<!--<link href="{{ asset('/css/magnifier.css') }}" rel="stylesheet" type="text/css" />-->
 
 <!-- Scripts -->
 <script type="text/javascript" src="{{ asset('/js/jquery-1.11.3.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/js/jquery-ui-1.11.3.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/js/myscripts.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/js/bootstrap.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('/js/magnific-popup.js') }}"></script>
+<!--<script type="text/javascript" src="{{ asset('/js/magnifier.js') }}"></script>
+<script type="text/javascript" src="{{ asset('/js/Events.js') }}"></script>-->
 
 </head>
 <body>

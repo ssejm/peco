@@ -20,7 +20,7 @@
     @foreach ($listings as $row)  
   <tr>
   <td><a  href="{{url('listings/'. $row->id)}}">
-    <img src="{{asset('/images/listings/'.$row->image_file_name)}}" alt="{{$row->title}}" width="100" /></a></td>
+    <img src="{{asset('/images/thumbnails/'.$row->image_file_name)}}" alt="{{$row->title}}" /></a></td>
   <td>{{$row->title}}</td>
   <td>{{$row->description}}</td>
   <td>{{$row->category}}</td>

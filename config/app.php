@@ -138,10 +138,11 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         /*
-         * Added for Shopping Cart.and Image Resize
+         * Added for Shopping Cart, Image Resize, Profanity Filter
          */
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
         Folklore\Image\ImageServiceProvider::class,
+        //Rtablada\Profane\FilterServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -176,9 +177,13 @@ return [
         'Cookie'    => Illuminate\Support\Facades\Cookie::class,
         'Crypt'     => Illuminate\Support\Facades\Crypt::class,
         'DB'        => Illuminate\Support\Facades\DB::class,
-        'Eloquent'  => Illuminate\Database\Eloquent\Model::class,
+        /* changed for Profanity Filter*/
+       'Eloquent'  => Illuminate\Database\Eloquent\Model::class,
+   //     'Eloquent'  => Rtablada\Profane\Model::class,
         'Event'     => Illuminate\Support\Facades\Event::class,
         'File'      => Illuminate\Support\Facades\File::class,
+         /* added for Profanity Filter*/
+   //     'Filter' => Rtablada\Profane\Facades\Filter::class,
         'Hash'      => Illuminate\Support\Facades\Hash::class,
          /* added for image resize (thumbnails) */
         'Image'     => Folklore\Image\Facades\Image::class,

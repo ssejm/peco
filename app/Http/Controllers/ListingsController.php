@@ -20,6 +20,7 @@ use Redirect;
 use Illuminate\Support\Str;
 
 use File;
+use Image;
 
 
 class ListingsController extends Controller
@@ -79,13 +80,14 @@ class ListingsController extends Controller
             'description'       => 'required',
             'category'      => 'required',
             'price'      => 'required|numeric',
-            'image'      => 'required|max:999|mimes:jpg,gif,jpeg,bmp,png',
+            'image'      => 'required|max:2000|mimes:jpg,gif,jpeg,bmp,png',
         );
         
         $messages = [
             'price.numeric' => 'The price must be a number. (Please do not include commas or dollar signs)',
             'image.required' => 'At least one image is required.',
-            'image.mimes' => 'Not a valid image. Valid types include jpg/jpeg, gif, and png.'
+            'image.mimes' => 'Not a valid image. Valid types include jpg/jpeg, gif, and png.',
+            'image.max' => ' The image must be less than than 2MB!'
         ];       
          
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -105,8 +107,11 @@ class ListingsController extends Controller
             // store
 
             $listing = new Listings;
-            $listing->title = $request->input('title');
-            $listing->description =  $request->input('description');
+
+//            $listing->title = $request->input('title');
+//            $listing->description =  $request->input('description');
+            $listing->title = $this->profanityCheck($request->input('title'));
+            $listing->description =  $this->profanityCheck($request->input('description'));
             $listing->category =  $request->input('category');
             $listing->price =  $request->input('price');
            // $listing->image_file_name =  $request->input('image_file_name');
@@ -118,6 +123,9 @@ class ListingsController extends Controller
             //move to correct destination
             //$destinationPath = url( asset('/images/listings/'));
             $destinationPath = public_path('images/listings/');
+            $thumbnailPath = public_path('images/thumbnails/');
+            $mediumPath = public_path('images/medium/');
+            
             $extension =  $request->file('image')->getClientOriginalExtension(); // getting image extension
             $fileName = Str::random(10) . rand(11111,99999).'.'.$extension; // renaming image
 
@@ -127,6 +135,22 @@ class ListingsController extends Controller
             
             $request->file('image')->move($destinationPath, $fileName);
 
+            //use to check image dimensions
+            //list($width, $height) = getimagesize($destinationPath . $fileName);
+            //echo "Width: $width, Height: $height<br />";
+            
+            //make thumbnail
+            Image::make($destinationPath . $fileName, array(
+                'width' => 100,
+                'height' => 100,
+            ))->save($thumbnailPath . $fileName);
+            
+            //make medium size image for listing display
+            Image::make($destinationPath . $fileName, array(
+                'width' => 500,
+                'height' => 500,
+            ))->save($mediumPath . $fileName);
+            
             /*
             //Getting path of uploaded file 
             $path = Input::file('image')->getRealPath();
@@ -221,8 +245,8 @@ class ListingsController extends Controller
         else {
             // store
 
-            $listing->title = $request->input('title');
-            $listing->description =  $request->input('description');
+            $listing->title = $this->profanityCheck($request->input('title'));
+            $listing->description =  $this->profanityCheck($request->input('description'));
             $listing->category =  $request->input('category');
             $listing->price =  $request->input('price');
 
@@ -235,6 +259,8 @@ class ListingsController extends Controller
                 //move to correct destination
                 //$destinationPath = url( asset('/images/listings/'));
                 $destinationPath = public_path('images/listings/');
+                $thumbnailPath = public_path('images/thumbnails/');
+                $mediumPath = public_path('images/medium/');
                 $extension =  $request->file('image')->getClientOriginalExtension(); // getting image extension
                 $fileName = Str::random(10) . rand(11111,99999).'.'.$extension; // renaming image
 
@@ -243,6 +269,19 @@ class ListingsController extends Controller
 
 
                 $request->file('image')->move($destinationPath, $fileName);
+                
+                //make thumbnail
+                Image::make($destinationPath . $fileName, array(
+                    'width' => 100,
+                    'height' => 100,
+                ))->save($thumbnailPath . $fileName);
+
+                //make medium size image for listing display
+                Image::make($destinationPath . $fileName, array(
+                    'width' => 500,
+                    'height' => 500,
+                ))->save($mediumPath . $fileName);
+
             }
             
             
@@ -275,6 +314,27 @@ class ListingsController extends Controller
         $listing->delete();
 
         return Redirect::to('/listings')->with('success', 'You have successfully deleted your listing!');
+
+    }
+    
+    private function profanityCheck($str)
+    {
+
+        //$count = 0;
+        
+        $filterRegex = "(boogers|snot|poop|shucks|argh)";
+        
+        $search1 = '/(c|C)(u|U)(n|N)(t|T)/i';
+        $search2 = '/(f|F)(u|U)(c|C)(k|K)/i';
+        
+        $replace = '$1*$3$4';
+        
+
+        // $str = preg_replace($search1, $replace, $str,  -1, $count);
+         $str = preg_replace($search1, $replace, $str);
+         $str = preg_replace($search2, $replace, $str);
+         
+         return $str;
 
     }
 }
